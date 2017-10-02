@@ -1,8 +1,6 @@
 package main
 
-// Listing is the common interface for a property listing
-type Listing interface {
-	getId() int
+// Listinger is the common interface for a property listing
+type Listinger interface {
 	getName() string
-	getPrice() float32
 }
