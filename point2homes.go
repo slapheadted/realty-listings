@@ -7,24 +7,24 @@ import (
 	"log"
 )
 
-type listing struct {
+type listingItem struct {
 	ListingID int    `json:"Listing_Id"`
 	Address   string `json:"Address"`
 }
 
 type listingsList struct {
-	ListingsSummaryVM []listing `json:"ListingsSummaryVM"`
+	ListingsSummaryVM []listingItem `json:"ListingsSummaryVM"`
 }
 
 type listingResponse struct {
 	ListingsList listingsList `json:"ListingsList"`
 }
 
-func (l listing) getName() string {
+func (l listingItem) getName() string {
 	return l.Address
 }
 
-func fetchListings() []listing {
+func fetchListings() []listingItem {
 	request := gorequest.New()
   _, body, errs := request.Post("https://www.point2homes.com/CA/Real-Estate-Listings.html").
     Send("&location=Kootenay+Rockies,+BC&search_mode=location&PriceMin=150000&PriceMax=450000&LotSizeMin=5&page=1&SelectedView=listings&LocationGeoId=432040&ajax=1").
