@@ -20,6 +20,10 @@ type listingResponse struct {
 	ListingsList listingsList `json:"ListingsList"`
 }
 
+func (l listing) getName() string {
+	return l.Address
+}
+
 func fetchListings() []listing {
 	request := gorequest.New()
   _, body, errs := request.Post("https://www.point2homes.com/CA/Real-Estate-Listings.html").
@@ -34,7 +38,10 @@ func fetchListings() []listing {
 
 	if err := json.Unmarshal([]byte(body), &cont); err != nil {
 		log.Fatal(err)
-  }
+	}
+
+	var singleListing = cont.ListingsList.ListingsSummaryVM[0]
+	fmt.Println("single", singleListing.getName())
 
   return cont.ListingsList.ListingsSummaryVM
 }
